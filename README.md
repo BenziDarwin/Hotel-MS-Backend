@@ -21,6 +21,10 @@ PORT=8080
 DB_DRIVER=sqlite
 SQLITE_PATH=./hotel_management.db
 JWT_SECRET=super-secret-hotel-key
+SEED_ADMIN_NAME=System Admin
+SEED_ADMIN_EMAIL=admin@hotel.local
+SEED_ADMIN_PASSWORD=admin123
+SEED_ADMIN_ROLE=admin
 ```
 
 ### PostgreSQL
@@ -30,6 +34,10 @@ PORT=8080
 DB_DRIVER=postgres
 DATABASE_URL=host=localhost user=postgres password=postgres dbname=hotel_management port=5432 sslmode=disable
 JWT_SECRET=super-secret-hotel-key
+SEED_ADMIN_NAME=System Admin
+SEED_ADMIN_EMAIL=admin@hotel.local
+SEED_ADMIN_PASSWORD=admin123
+SEED_ADMIN_ROLE=admin
 ```
 
 `DB_DRIVER` accepts:
@@ -39,6 +47,8 @@ JWT_SECRET=super-secret-hotel-key
 - `postgresql`
 
 For SQLite, the app uses a pure Go driver, so it works on common Windows 32-bit and 64-bit setups without requiring a separate native SQLite installation.
+
+The backend only auto-seeds one admin user now. The seeded admin account comes entirely from the `SEED_ADMIN_*` values in `.env`.
 
 ## Run locally
 
@@ -63,7 +73,8 @@ Health check:
 - Hotel image upload and replacement
 - Income categories
 - Income records and receipt metadata
-- Automatic schema migration and seed data
+- Automatic schema migration
+- Admin-only bootstrap seed from `.env`
 
 ## Important folders
 
@@ -78,4 +89,4 @@ Health check:
 
 - SQLite database files are ignored by `backend/.gitignore`.
 - Uploaded hotel images are stored under `backend/uploads/`.
-- On startup the app runs auto-migrations and seeds starter records if the database is empty.
+- On startup the app runs auto-migrations and, if there are no users yet, creates only the admin user from `.env`.

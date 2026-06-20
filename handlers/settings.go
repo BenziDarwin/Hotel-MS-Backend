@@ -81,7 +81,7 @@ func (h *SettingsHandler) ensureHotelSettings() (models.HotelSettings, error) {
 		return settings, err
 	}
 
-	settings = models.HotelSettings{HotelName: "Aurora Palms Hotel"}
+	settings = models.HotelSettings{HotelName: "Hotel MS"}
 	if createErr := h.db.Create(&settings).Error; createErr != nil {
 		return settings, createErr
 	}

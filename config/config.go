@@ -8,12 +8,16 @@ import (
 )
 
 type Config struct {
-	Port          string
-	DBDriver      string
-	DatabaseURL   string
-	SQLitePath    string
-	JWTSecret     string
-	TokenTTLHours int
+	Port              string
+	DBDriver          string
+	DatabaseURL       string
+	SQLitePath        string
+	JWTSecret         string
+	TokenTTLHours     int
+	SeedAdminName     string
+	SeedAdminEmail    string
+	SeedAdminPassword string
+	SeedAdminRole     string
 }
 
 func Load() Config {
@@ -22,12 +26,16 @@ func Load() Config {
 	}
 
 	return Config{
-		Port:          getEnv("PORT", "8080"),
-		DBDriver:      getEnv("DB_DRIVER", "sqlite"),
-		DatabaseURL:   getEnv("DATABASE_URL", "host=localhost user=postgres password=postgres dbname=hotel_management port=5432 sslmode=disable"),
-		SQLitePath:    getEnv("SQLITE_PATH", "./hotel_management.db"),
-		JWTSecret:     getEnv("JWT_SECRET", "super-secret-hotel-key"),
-		TokenTTLHours: 24,
+		Port:              getEnv("PORT", "8080"),
+		DBDriver:          getEnv("DB_DRIVER", "sqlite"),
+		DatabaseURL:       getEnv("DATABASE_URL", "host=localhost user=postgres password=postgres dbname=hotel_management port=5432 sslmode=disable"),
+		SQLitePath:        getEnv("SQLITE_PATH", "./hotel_management.db"),
+		JWTSecret:         getEnv("JWT_SECRET", "super-secret-hotel-key"),
+		TokenTTLHours:     24,
+		SeedAdminName:     getEnv("SEED_ADMIN_NAME", "System Admin"),
+		SeedAdminEmail:    getEnv("SEED_ADMIN_EMAIL", "admin@example.com"),
+		SeedAdminPassword: getEnv("SEED_ADMIN_PASSWORD", "admin123"),
+		SeedAdminRole:     getEnv("SEED_ADMIN_ROLE", "admin"),
 	}
 }
 
