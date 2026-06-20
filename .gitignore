@@ -1,0 +1,36 @@
+.env
+.env.local
+
+# Build outputs
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+backend
+dist/
+build/
+tmp/
+
+# Go test / coverage
+*.test
+*.out
+coverage.out
+coverage.html
+
+# SQLite databases
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+
+# Runtime uploads and logs
+uploads/
+logs/
+*.log
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
