@@ -44,7 +44,16 @@ func (h *SettingsHandler) UpdateHotelSettings(c *fiber.Ctx) error {
 		return respondError(c, fiber.StatusBadRequest, "hotelName is required")
 	}
 
+	currency := strings.ToUpper(strings.TrimSpace(c.FormValue("currency")))
+	if currency == "" {
+		return respondError(c, fiber.StatusBadRequest, "currency is required")
+	}
+
 	settings.HotelName = hotelName
+	settings.Currency = currency
+	settings.Phone = strings.TrimSpace(c.FormValue("phone"))
+	settings.Email = strings.TrimSpace(c.FormValue("email"))
+	settings.Address = strings.TrimSpace(c.FormValue("address"))
 
 	fileHeader, err := c.FormFile("hotelImage")
 	if err == nil && fileHeader != nil {
@@ -81,9 +90,22 @@ func (h *SettingsHandler) ensureHotelSettings() (models.HotelSettings, error) {
 		return settings, err
 	}
 
-	settings = models.HotelSettings{HotelName: "Hotel MS"}
+	settings = models.HotelSettings{
+		HotelName: "Hotel MS",
+		Currency:  "USD",
+		Phone:     "",
+		Email:     "",
+		Address:   "",
+	}
 	if createErr := h.db.Create(&settings).Error; createErr != nil {
 		return settings, createErr
+	}
+
+	if settings.Currency == "" {
+		settings.Currency = "USD"
+		if saveErr := h.db.Save(&settings).Error; saveErr != nil {
+			return settings, saveErr
+		}
 	}
 
 	return settings, nil

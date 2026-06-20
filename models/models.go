@@ -86,6 +86,10 @@ type HotelSettings struct {
 	ID         string    `gorm:"primaryKey;size:36" json:"id"`
 	HotelName  string    `gorm:"size:160;not null" json:"hotelName"`
 	HotelImage string    `gorm:"size:255" json:"hotelImage"`
+	Currency   string    `gorm:"size:12;not null;default:USD" json:"currency"`
+	Phone      string    `gorm:"size:60" json:"phone"`
+	Email      string    `gorm:"size:120" json:"email"`
+	Address    string    `gorm:"size:255" json:"address"`
 	CreatedAt  time.Time `json:"createdAt"`
 	UpdatedAt  time.Time `json:"updatedAt"`
 }
